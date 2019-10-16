@@ -10,12 +10,20 @@ function get_all_posts()
 //DEBUT GRUD
 
 //CREATION
-function create_post($title,$content)
+function create_post($title,$content, $id_cat)
 {
     global $db;
-    $creation = $db->prepare("Insert into posts(title,content) values(?,?)");
-    $creation -> execute(array($title,$content));
+    $creation = $db->prepare("Insert into posts(title,content, id_cat) values(?,?, ?)");
+    $creation -> execute(array($title,$content,$id_cat));
 }
+
+function create_cat($categorie)
+{
+    global $db;
+    $creation = $db->prepare("Insert into cat(categorie) values(?)");
+    $creation -> execute(array($categorie));
+}
+
 //RETRIEVE
 //UPDATE
 function update_post($id,$title,$content)
@@ -51,5 +59,15 @@ function content($num){
     $res = $contenu->fetch(\PDO::FETCH_ASSOC);
 
     return $res['content'];
+}
+
+function get_cat_by_id($num){
+
+    global $db;
+    $contenu = $db->prepare("SELECT * FROM cat where id = ?");
+    $contenu -> execute(array($num));
+    $res = $contenu->fetch(\PDO::FETCH_ASSOC);
+
+    return $res['categorie'];
 }
 
