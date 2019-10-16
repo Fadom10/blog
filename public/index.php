@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     header('location:index.php');
 }
 
+
 //APPUI SUPPR
 if (isset($_POST['delete'])) {
     delete_post($_POST['titre']);
